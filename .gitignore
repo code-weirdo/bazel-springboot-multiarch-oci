@@ -1,0 +1,26 @@
+## Ignore JetBrains IDE files
+.ijwb/
+.idea/
+.venv/
+
+## Ignore Bazel folders
+bazel-*
+
+## Ignore any artifacts
+*.jar
+*.ear
+*.war
+
+## Eclipse project files
+.settings/
+.classpath
+.project
+.factorypath
+
+## IntelliJ project files
+*.iml
+.idea
+
+## Mac Files
+.DS_Store
+
