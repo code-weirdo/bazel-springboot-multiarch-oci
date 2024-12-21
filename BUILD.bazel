@@ -1,9 +1,33 @@
-#load("@rules_java:java/defs.bzl", "java_library")
+load("@rules_java//java:java_binary.bzl", "java_binary")
+load("@rules_oci//oci:defs.bzl", "oci_image", "oci_load")
+load("@rules_pkg//:pkg.bzl", "pkg_tar")
 
 java_binary(
-    name = "lib",
+    name = "app",
     srcs = glob(["src/main/java/**/*.java"]),
     main_class = "com.example.HelloWorld",
     resources = glob(["src/main/resources/**"]),
     deps = [],
+)
+
+pkg_tar(
+    name = "layer",
+    srcs = [":app_deploy.jar"],
+)
+
+oci_image(
+    name = "image",
+    base = "@distroless_java",
+    entrypoint = [
+        "java",
+        "-jar",
+        "/app_deploy.jar",
+    ],
+    tars = [":layer"],
+)
+
+oci_load(
+    name = "load",
+    image = ":image",
+    repo_tags = ["my-repository:latest"],
 )
