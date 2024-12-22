@@ -2,6 +2,9 @@ bazel_dep(name = "rules_java", version = "7.12.2")
 bazel_dep(name = "rules_jvm_external", version = "6.6")
 bazel_dep(name = "rules_oci", version = "2.2.0")
 bazel_dep(name = "rules_pkg", version = "1.0.1")
+bazel_dep(name = "aspect_bazel_lib", version = "2.10.0")
+bazel_dep(name = "bazel_skylib", version = "1.7.1")
+bazel_dep(name = "platforms", version = "0.0.10")
 
 maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
 maven.install(
@@ -17,7 +20,8 @@ oci.pull(
     image = "gcr.io/distroless/java21",
     platforms = [
         "linux/amd64",
+        "linux/arm64",
         "linux/arm64/v8",
     ],
 )
-use_repo(oci, "distroless_java", "distroless_java_linux_amd64", "distroless_java_linux_arm64_v8")
+use_repo(oci, "distroless_java", "distroless_java_linux_amd64", "distroless_java_linux_arm64", "distroless_java_linux_arm64_v8")

@@ -1,6 +1,7 @@
 load("@rules_java//java:java_binary.bzl", "java_binary")
 load("@rules_oci//oci:defs.bzl", "oci_image", "oci_load")
 load("@rules_pkg//:pkg.bzl", "pkg_tar")
+load("//:build/transition.bzl", "multi_arch")
 
 java_binary(
     name = "app",
@@ -24,6 +25,15 @@ oci_image(
         "/app_deploy.jar",
     ],
     tars = [":layer"],
+)
+
+multi_arch(
+    name = "images",
+    image = ":image",
+    platforms = [
+        "//build/platforms:linux-x86_64",
+        "//build/platforms:linux-aarch64",
+    ],
 )
 
 oci_load(
