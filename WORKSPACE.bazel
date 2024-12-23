@@ -1,0 +1,9 @@
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "rules_spring",
+    sha256 = "939dd1399ff75a067a20aeeef2000c3a37791e54c8c5a899e78bd8175341263a",
+    urls = [
+        "https://github.com/salesforce/rules_spring/releases/download/2.4.1/rules-spring-2.4.1.zip",
+    ],
+)
